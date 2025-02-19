@@ -46,6 +46,6 @@ This repository contains implementations of various **Data Structures** in **C l
 Feel free to fork and contribute to improve this repository.  
 
 ### 📧 Contact  
-For any queries, reach out at **your-email@example.com**  
+For any queries, reach out at **official.harshit@outlook.com**  
 
 -
