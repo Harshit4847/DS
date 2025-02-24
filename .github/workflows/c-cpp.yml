@@ -13,8 +13,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: stack_array.c
-      run: ./stack_array.c
+    - name: Install Autotools
+      run: sudo apt-get install -y autoconf automake libtool
+    - name: Generate configure script
+      run: autoreconf -i
+    - name: configure
+      run: ./configure
     - name: make
       run: make
     - name: make check
