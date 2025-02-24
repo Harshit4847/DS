@@ -1,34 +1,45 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4  # Checkout the code from the repository
+      # Checkout the code from the repository
+      - uses: actions/checkout@v4
 
-      # Install autoconf and automake tools
-      - name: Install Autotools (autoconf, automake)
-        run: sudo apt-get update && sudo apt-get install -y autoconf automake
+      # Install necessary dependencies for building
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y autoconf automake build-essential make gcc libtool
 
-      # Generate the configure script if it's missing
+      # Generate configure script if not already present
       - name: Generate configure script
-        run: autoreconf -i  # This will generate the configure script from configure.ac
+        run: autoreconf -i
 
-      # Make sure the configure script is executable
+      # Make the configure script executable
       - name: Make configure script executable
         run: chmod +x ./configure
 
-      # Run the configure script to configure the build
+      # Run the configure script to configure the build environment
       - name: Run configure
         run: ./configure
 
-      # Run make to build the project
+      # Run make to compile the project
       - name: Run make
         run: make
 
-      # Run tests using make check
+      # Run make check to execute tests
       - name: Run make check
         run: make check
 
-      # Run distcheck to check the package for distribution
+      # Run make distcheck to check the distributability of the project
       - name: Run make distcheck
         run: make distcheck
